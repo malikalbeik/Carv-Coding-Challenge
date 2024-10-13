@@ -1,0 +1,4 @@
+project_name         = "CarvCodingChallenge"
+project_id           = "carv-coding-challenge"
+web_app_display_name = "carv-coding-challenge-web-app"
+firestore_region     = "europe-west4"
