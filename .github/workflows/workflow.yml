@@ -93,6 +93,11 @@ jobs:
         source ${{ github.workspace }}/functions/venv/bin/activate
         pip install -r ${{ github.workspace }}/functions/requirements.txt
 
+    - name: Populate firebase env variables
+      run: |
+        echo "REGION=\"${{vars.FIRESTORE_REGION}}\"" >> ${{ github.workspace }}/functions/.env
+        echo "PURCHASE_TOPIC_NAME=\"${{vars.PURCHASES_QUEUE_NAME}}\"" >> ${{ github.workspace }}/functions/.env
+        
     - name: Deploy to Firebase
       run: |
         firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --token ${{secrets.FIREBASE_TOKEN}} --message "${{ github.event.head_commit.message }}" --only functions
