@@ -61,6 +61,7 @@ jobs:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
   build-and-deploy-firebase:
+    needs: terraform
     runs-on: ubuntu-latest
     
     steps:
@@ -91,17 +92,6 @@ jobs:
         source ${{ github.workspace }}/functions/venv/bin/activate
         pip install -r ${{ github.workspace }}/functions/requirements.txt
 
-    # Step to authenticate Firebase CLI using service account with correct syntax
-    - name: Authenticate Firebase CLI
-      run: |
-        echo $GOOGLE_CREDENTIALS ${{ github.workspace }}/gcp-key.json
-      shell: bash
-      env:
-        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-
     - name: Deploy to Firebase
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: "${{ github.workspace }}/gcp-key.json"
       run: |
-        firebase use ${{vars.FIREBASE_PROJECT_ID}}
-        firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --message "${{ github.event.head_commit.message }}" --only functions
+        firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --token ${{secrets.FIREBASE_TOKEN}} --message "${{ github.event.head_commit.message }}" --only functions
