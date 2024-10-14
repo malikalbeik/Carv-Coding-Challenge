@@ -3,7 +3,6 @@ name: 'Terraform'
 on:
   push:
     branches: [ "main" ]
-  pull_request:
 
 permissions:
   contents: read
@@ -59,3 +58,25 @@ jobs:
       run: terraform apply -auto-approve -input=false
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+  build-and-deploy-firebase:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    - name: Deploy to Firebase
+      env:
+        GCP_SA_KEY: ${{ secrets.GOOGLE_CREDENTIALS }}
+        PROJECT_ID: ${{vars.FIREBASE_PROJECT_ID}}
+        
+      run: firebase deploy --only functions
