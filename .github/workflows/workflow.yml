@@ -77,6 +77,6 @@ jobs:
 
     - name: Deploy to Firebase
       env:
-        GCP_SA_KEY: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
     
       run: firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --only functions
