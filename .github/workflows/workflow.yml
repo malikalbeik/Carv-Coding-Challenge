@@ -61,7 +61,6 @@ jobs:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
   build-and-deploy-firebase:
-    needs: terraform
     runs-on: ubuntu-latest
     
     steps:
@@ -96,4 +95,5 @@ jobs:
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       run: |
+        firebase use ${{vars.FIREBASE_PROJECT_ID}}
         firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --message "${{ github.event.head_commit.message }}" --only functions
