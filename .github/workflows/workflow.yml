@@ -93,8 +93,7 @@ jobs:
         pip install -r ${{ github.workspace }}/functions/requirements.txt
 
     - name: Deploy to Firebase
-      run: |
-        firebase use ${{ vars.FIREBASE_PROJECT_ID }}
-        firebase deploy --message "${{ github.event.head_commit.message }}" --only functions
       env:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      run: |
+        firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --message "${{ github.event.head_commit.message }}" --only functions
