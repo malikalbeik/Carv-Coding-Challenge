@@ -68,6 +68,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -84,9 +93,8 @@ jobs:
         pip install -r ${{ github.workspace }}/functions/requirements.txt
 
     - name: Deploy to Firebase
-      uses: w9jds/firebase-action@master
-      with:
-        args: deploy --message "${{ github.event.head_commit.message }}" --only functions
+      run: |
+        firebase use ${{ vars.FIREBASE_PROJECT_ID }}
+        firebase deploy --message "${{ github.event.head_commit.message }}" --only functions
       env:
-        GCP_SA_KEY: ${{ secrets.GOOGLE_CREDENTIALS }}
-        PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
+        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
