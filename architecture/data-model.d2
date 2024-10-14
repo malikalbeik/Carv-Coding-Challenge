@@ -1,40 +1,46 @@
-events: {
-  shape: sql_table
-  id: "String (Event ID)"
-  name: "String"
-  description: "String"
-  start_time: "Timestamp"
-  end_time: "Timestamp"
-  available_tickets: "Number"
-  total_tickets: "Number"
-  price: "Number"
+firestore: {
+  eventsCollection: {
+    events: {
+      shape: sql_table
+      id: "String (Event ID)" {constraint: primary_key}
+      name: "String"
+      description: "String"
+      start_time: "Timestamp"
+      end_time: "Timestamp"
+      available_tickets: "Number"
+      total_tickets: "Number"
+      price: "Number"
+      tickets: "List of Tickets"
+    }
+
+    ticketsSubcollection: {
+      shape: sql_table
+      id: "String (Ticket ID)" {constraint: primary_key}
+      event_id: "Reference to Event" {constraint: foreign_key}
+      status: "Enum (Available, Sold, Onhold)"
+    }
+  }
+
+  usersCollection: {
+    users: {
+      shape: sql_table
+      id: "String (User ID)" {constraint: primary_key}
+      name: "String"
+      email: "String"
+      purchases: "List of Purchases"
+    }
+    purchasesSubCollection: {
+      shape: sql_table
+      id: "String (Purchase ID)" {constraint: primary_key}
+      event_id: "Reference to Event" {constraint: foreign_key}
+      ticket_id: "Reference to Ticket" {constraint: foreign_key}
+      purchase_status: "Enum (Active, Cancelled)"
+      purchase_time: "Timestamp"
+    }
+  }
 }
 
-tickets: {
-  shape: sql_table
-  id: "String (Ticket ID)"
-  event_id: "Reference to Event"
-  status: "Enum (Available, Sold, Onhold)"
-}
-
-users: {
-  shape: sql_table
-  id: "String (User ID)"
-  name: "String"
-  email: "String"
-}
-
-purchases: {
-  shape: sql_table
-  id: "String (Purchase ID)"
-  user_id: "Reference to User"
-  event_id: "Reference to Event"
-  ticket_id: "Reference to Ticket"
-  purchase_status: "Enum (Active, Cancelled)"
-  purchase_time: "Timestamp"
-}
-
-events -> tickets: "Has Many"
-users -> purchases: "Has Many"
-tickets -> purchases: "Has Many"
-events -> purchases: "Has Many"
+firestore.eventsCollection.events.tickets -> firestore.eventsCollection.ticketsSubcollection: "SubCollection"
+firestore.usersCollection.users.purchases -> firestore.usersCollection.purchasesSubCollection: "SubCollection"
+firestore.usersCollection.purchasesSubCollection.event_id -> firestore.eventsCollection.events: "Event Purchased"
+firestore.usersCollection.purchasesSubCollection.ticket_id -> firestore.eventsCollection.ticketsSubcollection: "Ticket Purchased"
