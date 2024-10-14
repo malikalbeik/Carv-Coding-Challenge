@@ -156,6 +156,6 @@ resource "google_project_service" "artifact_registry" {
 
 # Add Pub/Sub Topic
 resource "google_pubsub_topic" "purchases_queue" {
-  name    = vars.purchases_queue_name
+  name    = var.purchases_queue_name
   project = google_firebase_project.default.project
 }
