@@ -4,8 +4,7 @@ resource "google_project" "default" {
 
   name       = var.project_name
   project_id = var.project_id
-  org_id = var.organization_id
-
+  org_id     = var.organization_id
 
   # Required for the project to display in any list of Firebase projects.
   labels = {
@@ -50,13 +49,11 @@ resource "google_firebase_project" "default" {
 
 # Create a Firebase Web App in the new project created above.
 resource "google_firebase_web_app" "default" {
-  provider = google-beta
-
-  project      = google_firebase_project.default.project
-  display_name = var.web_app_display_name
+  provider      = google-beta
+  project       = google_firebase_project.default.project
+  display_name  = var.web_app_display_name
   deletion_policy = "DELETE"
 }
-
 
 # Enable required APIs for Cloud Firestore.
 resource "google_project_service" "firestore" {
@@ -76,7 +73,6 @@ resource "google_project_service" "firestore" {
 # Provision the Firestore database instance.
 resource "google_firestore_database" "default" {
   provider                    = google-beta
-
   project                     = google_firebase_project.default.project
   name                        = "(default)"
   location_id                 = var.firestore_region
@@ -126,4 +122,28 @@ resource "google_firebaserules_release" "firestore" {
       google_firebaserules_ruleset.firestore
     ]
   }
+}
+
+# Enable required APIs for Cloud Functions and Artifact Registry (for deploying Cloud Functions).
+resource "google_project_service" "cloud_functions_and_artifact_registry" {
+  provider = google-beta
+
+  project  = google_firebase_project.default.project
+  for_each = toset([
+    "cloudfunctions.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "cloudbuild.googleapis.com"
+  ])
+  service = each.key
+
+  # Don't disable the service if the resource block is removed by accident.
+  disable_on_destroy = false
+}
+
+# Enable Artifact Registry API explicitly to handle deployment dependencies for functions
+resource "google_project_service" "artifact_registry" {
+  provider = google-beta
+  project  = google_firebase_project.default.project
+  service  = "artifactregistry.googleapis.com"
+  disable_on_destroy = false
 }
