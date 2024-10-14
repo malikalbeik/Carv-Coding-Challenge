@@ -94,8 +94,10 @@ jobs:
     # Step to authenticate Firebase CLI using service account with correct syntax
     - name: Authenticate Firebase CLI
       run: |
-        echo "${{ secrets.GOOGLE_CREDENTIALS }}" | base64 --decode > ${{ github.workspace }}/gcp-key.json
+        echo $GCP_SA_KEY | base64 --decode > ${{ github.workspace }}/gcp-key.json
       shell: bash
+      env:
+        GCP_SA_KEY: ${{secrets.GCP_SA_KEY}}
 
     - name: Deploy to Firebase
       env:
