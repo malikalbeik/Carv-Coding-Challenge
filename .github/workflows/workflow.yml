@@ -75,12 +75,12 @@ jobs:
 
     - name: Create and activate virtual environment
       run: |
-        python -m venv functions/venv
-        source functions/venv/bin/activate
+        python -m venv ${{ github.workspace }}/functions/venv
+        source ${{ github.workspace }}/functions/venv/bin/activate
 
     - name: Install dependencies
       run: |
-        pip install -r functions/requirements.txt
+        pip install -r ${{ github.workspace }}/functions/requirements.txt
 
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@master
