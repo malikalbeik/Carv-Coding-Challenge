@@ -60,6 +60,7 @@ jobs:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
   build-and-deploy-firebase:
+    needs: terraform
     runs-on: ubuntu-latest
     
     steps:
@@ -77,6 +78,5 @@ jobs:
     - name: Deploy to Firebase
       env:
         GCP_SA_KEY: ${{ secrets.GOOGLE_CREDENTIALS }}
-        PROJECT_ID: ${{vars.FIREBASE_PROJECT_ID}}
-        
-      run: firebase deploy --only functions
+    
+      run: firebase deploy project ${{vars.FIREBASE_PROJECT_ID}} --only functions
