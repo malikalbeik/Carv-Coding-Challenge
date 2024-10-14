@@ -9,7 +9,6 @@ firestore: {
       end_time: "Timestamp"
       available_tickets: "Number"
       total_tickets: "Number"
-      price: "Number"
       tickets: "List of Tickets"
     }
 
@@ -17,6 +16,7 @@ firestore: {
       shape: sql_table
       id: "String (Ticket ID)" {constraint: primary_key}
       event_id: "Reference to Event" {constraint: foreign_key}
+      price: "Number"
       status: "Enum (Available, Sold, Onhold)"
     }
   }

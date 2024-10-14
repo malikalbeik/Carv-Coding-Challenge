@@ -9,19 +9,24 @@ variable "project_id" {
 }
 
 variable "web_app_display_name" {
-    description = "The display name of the web app registeredd with the firebase project"
-    type        = string
+  description = "The display name of the web app registeredd with the firebase project"
+  type        = string
 }
 
 variable "firestore_region" {
-    description = "region name for where the firestore database will be"
-    type = string
+  description = "region name for where the firestore database will be"
+  type        = string
 }
 variable "organization_id" {
-    description = "Organization id for which the newly created project will be in"
-    type = string
+  description = "Organization id for which the newly created project will be in"
+  type        = string
 }
 variable "billing_account" {
-    description = "Billing account id for which the project will be associated with"
-    type = string
+  description = "Billing account id for which the project will be associated with"
+  type        = string
+}
+
+variable "purchases_queue_name" {
+  description = "name of the pubsub queue that we use for purchases"
+  type        = string
 }
