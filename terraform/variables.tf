@@ -21,3 +21,7 @@ variable "organization_id" {
     description = "Organization id for which the newly created project will be in"
     type = string
 }
+variable "billing_account" {
+    description = "Billing account id for which the project will be associated with"
+    type = string
+}

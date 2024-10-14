@@ -2,9 +2,10 @@
 resource "google_project" "default" {
   provider = google-beta.no_user_project_override
 
-  name       = var.project_name
-  project_id = var.project_id
-  org_id     = var.organization_id
+  name              = var.project_name
+  project_id        = var.project_id
+  org_id            = var.organization_id
+  billing_account   = var.billing_account
 
   # Required for the project to display in any list of Firebase projects.
   labels = {
