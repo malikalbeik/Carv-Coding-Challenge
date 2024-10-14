@@ -4,6 +4,8 @@ resource "google_project" "default" {
 
   name       = var.project_name
   project_id = var.project_id
+  org_id = var.organization_id
+
 
   # Required for the project to display in any list of Firebase projects.
   labels = {

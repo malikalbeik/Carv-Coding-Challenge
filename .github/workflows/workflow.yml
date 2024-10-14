@@ -37,6 +37,7 @@ jobs:
         project_id="${{vars.FIREBASE_PROJECT_ID}}"
         web_app_display_name="${{vars.FIREBASE_WEB_APP_DISPLAY_NAME}}"
         firestore_region="${{vars.FIRESTORE_REGION}}"
+        organization_id="${{vars.ORGANIZATION_ID}}"
         EOF
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.

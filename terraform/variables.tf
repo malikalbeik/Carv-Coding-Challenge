@@ -17,3 +17,7 @@ variable "firestore_region" {
     description = "region name for where the firestore database will be"
     type = string
 }
+variable "organization_id" {
+    description = "Organization id for which the newly created project will be in"
+    type = string
+}
