@@ -91,9 +91,14 @@ jobs:
         source ${{ github.workspace }}/functions/venv/bin/activate
         pip install -r ${{ github.workspace }}/functions/requirements.txt
 
+    # Step to authenticate Firebase CLI using service account
+    - name: Authenticate Firebase CLI
+      run: |
+        echo ${{ secrets.GOOGLE_CREDENTIALS }} > ${{ github.workspace }}/gcp-key.json
+
     - name: Deploy to Firebase
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_APPLICATION_CREDENTIALS: "${{ github.workspace }}/gcp-key.json"
       run: |
         firebase use ${{vars.FIREBASE_PROJECT_ID}}
         firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --message "${{ github.event.head_commit.message }}" --only functions
