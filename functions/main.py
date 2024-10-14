@@ -9,5 +9,7 @@ initialize_app()
 
 
 @https_fn.on_request()
-def on_request_example(req: https_fn.Request) -> https_fn.Response:
+def on_request_example(
+    req: https_fn.Request, region="europe-west4"
+) -> https_fn.Response:
     return https_fn.Response("Hello world!")
