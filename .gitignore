@@ -323,3 +323,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+.firebaserc
+.vscode/
+.DS_Store
