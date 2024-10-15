@@ -1,4 +1,4 @@
-import {EventContext} from "firebase-functions";
+import {EventContext} from "firebase-functions/v1";
 
 /**
  * This function checks the age of an event and is used retry events
