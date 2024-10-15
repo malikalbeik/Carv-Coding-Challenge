@@ -95,3 +95,125 @@ This architecture ensures that the system can handle large spikes in user traffi
 ## Testing
 
 Run `npm run test` in the `functions/` directory. Test coverage information can be found in `coverage/lcov.info`.
+
+##  API Documentation & Endpoints
+
+Each endpoint manages different functionalities related to events, tickets, and users.
+
+### holdTicket
+
+**Description**: This endpoint puts a ticket on hold for the specified user for 20 minutes, ensuring no one else can purchase it during this time.
+
+- Method: POST
+- URL: https://holdticket-crw375sxma-uc.a.run.app
+- Request Body:
+
+    ```json
+    {
+        "ticketId": "string",
+        "eventId": "string",
+        "userId": "string"
+    }
+    ```
+
+
+- Response: Success or error message based on ticket hold status.
+
+### listEventsHttps
+
+**Description**: Lists all events with pagination support. You can specify the number of events to return (limit) and paginate results using the startAfter parameter.
+
+- Method: GET
+- URL: https://listeventshttps-crw375sxma-uc.a.run.app?limit={limit}&startAfter={startAfter}
+- Query Parameters:
+    - limit: Number of events to retrieve (default: 10).
+    - startAfter: Event ID to start after (used for pagination).
+- Response: A list of events with metadata and pagination information.
+
+### getEventWithTicketsHttps
+
+**Description**: Fetches a specific event and all its associated tickets by providing the eventId.
+
+- Method: GET
+- URL: https://geteventwithticketshttps-crw375sxma-uc.a.run.app?eventId={eventId}
+- Query Parameters:
+- eventId: The ID of the event to fetch.
+- Response: Event details along with a list of tickets associated with the event.
+
+### createEventHttps
+
+**Description**: Creates an event with the specified number of tickets. Each available ticket is generated during the creation process.
+
+- Method: POST
+- URL: https://createeventhttps-crw375sxma-uc.a.run.app
+- Request Body:
+
+    ```json
+    {
+        "name": "string",
+        "description": "string",
+        "startTime": "ISO 8601 date string",
+        "endTime": "ISO 8601 date string",
+        "availableTickets": "number",
+        "ticketsPrice": "number"
+    }
+    ```
+
+
+	•	Response: Event creation success or failure message.
+
+### createUserHttps
+
+**Description**: Creates a new user in the system with the provided name and email.
+
+- Method: POST
+- URL: https://createuserhttps-crw375sxma-uc.a.run.app
+- Request Body:
+
+    ```json
+    {
+        "name": "string",
+        "email": "string"
+    }
+    ```
+
+- Response: Success or failure message indicating user creation status.
+
+### cancelTicketHttp
+
+**Description**: Cancels a purchased ticket. The ticket must already be purchased before it can be canceled.
+
+- Method: POST
+- URL: https://canceltickethttp-crw375sxma-uc.a.run.app
+- Request Body:
+
+    ```json
+    {
+        "eventId": "string",
+        "ticketId": "string",
+        "userId": "string"
+    }
+    ```
+
+- Response: Success or failure message indicating whether the ticket was successfully canceled.
+
+### purchaseEventHttps
+
+**Description**: Initiates a ticket purchase by placing a purchase request in the Pub/Sub queue. The ticket must be locked for the user before calling this endpoint.
+
+- Method: POST
+- URL: https://purchaseeventhttps-crw375sxma-uc.a.run.app
+- Request Body:
+
+    ```json
+    {
+        "eventId": "string",
+        "ticketId": "string",
+        "userId": "string"
+    }
+    ```
+
+
+- Response: Success message indicating the event was placed in the Pub/Sub queue for purchase processing.
+
+These endpoints allow you to fully manage events, tickets, and users in the Carv Event Ticketing System. For load testing purposes, you can automate requests to these endpoints using a tool like JMeter, Locust, or any HTTP load testing framework of your choice.
