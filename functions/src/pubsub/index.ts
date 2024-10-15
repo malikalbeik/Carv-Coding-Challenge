@@ -1,1 +1,1 @@
-export * from './event/purchase-event-on-publish'
+export * from "./event/purchase-event-on-publish";

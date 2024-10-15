@@ -1,1 +1,1 @@
-export * from './purchase-event/purchase-event-https'
+export * from "./purchase-event/purchase-event-https";
