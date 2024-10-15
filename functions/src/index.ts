@@ -5,4 +5,7 @@ export * from "./https/index";
 export * from "./scheduled/index";
 
 // PUBSUB FUNCTIONS
-// export * from "./pubsub/index";
+export * from "./pubsub/index";
+
+// DOCUMENT TRIGGERES
+export * from "./document/ticket-trigger";
