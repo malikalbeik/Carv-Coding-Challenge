@@ -34,6 +34,11 @@ Looking forward to joining your team and contributing even more!
 - `architecture/`: System architecture documentation
   - `data-model.d2`: Detailed view of the data model
   - `overall-architecture.d2`: Overview of the system architecture
+  - `README.md`: Detailed architecture readme
+
+- `load-testing/`: Contains scripts and resources for load testing the event ticketing system
+  - `load_testing.py`: Main Python script for simulating high load on the system
+  - `README.md`: Detailed instructions on how to run and configure the load tests
 
 ## Key Features
 
@@ -81,6 +86,7 @@ This architecture ensures that the system can handle large spikes in user traffi
 4. Serve the http functions through a centralized function instead of one function for each endpoint
 5. More tests: while I have lots of tests there are somethings that i wasn't able to test with the time provided. Things like pubsub triggers.
 6. Add a way to know who bought which ticket without querying the purchases (or add an index for the purchases based on the ticket/event id.)
+7. Better load testing script. Not a lot of time was left for the load testing script so had to write a small one. It can definitely be improved
 
 
 ## Getting Started
