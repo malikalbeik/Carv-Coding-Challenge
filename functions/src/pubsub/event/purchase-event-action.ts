@@ -1,5 +1,4 @@
 import * as admin from "firebase-admin";
-// import { HttpsError } from 'firebase-functions/lib/v1/providers/https';
 import {Message} from "firebase-functions/lib/v1/providers/pubsub";
 import {PurchaseEventMessage} from "../../model/purchase-event-message";
 

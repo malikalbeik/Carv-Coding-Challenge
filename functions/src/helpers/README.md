@@ -16,6 +16,5 @@ These helpers are imported and used in various parts of the project to promote c
 
 - `constants.ts` is used to define Pub/Sub topic names, which are then used in the Pub/Sub functions.
 - `fb.ts` provides a singleton instance of Firestore, ensuring efficient database access across the application.
-- `retry-checks.ts` includes the `allowedToExecute` function, which is used in Pub/Sub handlers to prevent processing of outdated events.
 
 Remember to import these helpers as needed in your function files to leverage their functionality.
