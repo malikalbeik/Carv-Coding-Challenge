@@ -18,7 +18,10 @@ firestore: {
       event_id: "Reference to Event" {constraint: foreign_key}
       price: "Number"
       status: "Enum (Available, Sold, Onhold)"
-    }
+      hold_status: "Boolean"
+      hold_expires_at: "Timestamp"
+      holding_user_id: "Reference to User"  {constraint: foreign_key}
+}
   }
 
   usersCollection: {

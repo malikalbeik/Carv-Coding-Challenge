@@ -1,1 +1,59 @@
-# TODO: finalize arch
+firebase {
+  functions {
+    create_event_function: "Create Event" {
+        shape: "image"
+        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7vw3h_7yaraGIo50p5ZMzz3V_zasWzQFMw&s"
+    }
+    get_event_tickets_function: "Get Event and Tickets" {
+        shape: "image"
+        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7vw3h_7yaraGIo50p5ZMzz3V_zasWzQFMw&s"
+    }
+    list_events_function: "List Events" {
+        shape: "image"
+        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7vw3h_7yaraGIo50p5ZMzz3V_zasWzQFMw&s"
+    }
+    release_expired_holds_function: "Release Holds" {
+        shape: "image"
+        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7vw3h_7yaraGIo50p5ZMzz3V_zasWzQFMw&s"
+    }
+    purchase_event_function: "Purchase Event" {
+        shape: "image"
+        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7vw3h_7yaraGIo50p5ZMzz3V_zasWzQFMw&s"
+    }
+    purchase_transaction_function: "Purchase Transaction" {
+        shape: "image"
+        icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7vw3h_7yaraGIo50p5ZMzz3V_zasWzQFMw&s"
+    }
+  }
+
+  firestore: "Firestore Database" {
+    shape: "image"
+    icon: "https://www.svgrepo.com/show/375433/firestore.svg"
+  }
+
+  pubsub: "Pub/Sub Topic for Purchases" {
+    shape: "image"
+    icon: "https://icons.terrastruct.com/gcp%2FProducts%20and%20services%2FData%20Analytics%2FCloud%20PubSub.svg"
+  }
+}
+
+user: Clients {
+    shape: "image"
+    icon: "https://icons.terrastruct.com/essentials%2F359-users.svg"
+}
+
+user -> firebase.functions.create_event_function: "Create Event"
+user -> firebase.functions.get_event_tickets_function: "Get Event & Tickets"
+user -> firebase.functions.list_events_function: "List Events"
+user -> firebase.functions.purchase_event_function: "Purchase Ticket"
+
+firebase.functions.create_event_function -> firebase.firestore
+firebase.functions.get_event_tickets_function -> firebase.firestore
+firebase.functions.list_events_function -> firebase.firestore
+firebase.functions.purchase_event_function -> firebase.pubsub
+
+firebase.pubsub -> firebase.functions.purchase_transaction_function: "Process Purchase Event"
+
+firebase.functions.purchase_transaction_function -> firebase.firestore
+
+firebase.functions.release_expired_holds_function -> firebase.firestore
