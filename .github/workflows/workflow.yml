@@ -82,7 +82,7 @@ jobs:
       run: |
         cd ${{ github.workspace }}/functions
         npm install
-        npm run-script-build
+        npm run-script build
 
     - name: Populate firebase env variables
       run: |
