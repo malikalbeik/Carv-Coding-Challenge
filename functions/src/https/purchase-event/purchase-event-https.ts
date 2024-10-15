@@ -28,4 +28,4 @@ export const purchaseEventHttps = functions.https.onRequest(
 
     await purchaseEventPubSubClient.sendMessage(PurchaseEventMessage);
     response.status(200).send("Msg Sent");
-});
+  });
