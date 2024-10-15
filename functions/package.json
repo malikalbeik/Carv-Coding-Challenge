@@ -12,7 +12,7 @@
     "test": "jest /src --coverage --runInBand --collectCoverageFrom=src/**/*.ts --collectCoverageFrom=!src/**/index.ts"
   },
   "engines": {
-    "node": "18"
+    "node": "20"
   },
   "jest": {
     "collectCoverage": true,

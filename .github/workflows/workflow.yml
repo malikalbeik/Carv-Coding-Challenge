@@ -91,4 +91,4 @@ jobs:
         
     - name: Deploy to Firebase
       run: |
-        firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --token ${{secrets.FIREBASE_TOKEN}} --message "${{ github.event.head_commit.message }}" --only functions
+        firebase deploy --project ${{vars.FIREBASE_PROJECT_ID}} --token ${{secrets.FIREBASE_TOKEN}} --message "${{ github.event.head_commit.message }}" --only functions --force
