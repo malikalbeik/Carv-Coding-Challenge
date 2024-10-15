@@ -78,20 +78,11 @@ jobs:
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-
-    - name: Create and activate virtual environment
+    - name: Install dependencies & build
       run: |
-        python -m venv ${{ github.workspace }}/functions/venv
-        source ${{ github.workspace }}/functions/venv/bin/activate
-
-    - name: Install dependencies
-      run: |
-        source ${{ github.workspace }}/functions/venv/bin/activate
-        pip install -r ${{ github.workspace }}/functions/requirements.txt
+        cd ${{ github.workspace }}/functions
+        npm install
+        npm run-script-build
 
     - name: Populate firebase env variables
       run: |
