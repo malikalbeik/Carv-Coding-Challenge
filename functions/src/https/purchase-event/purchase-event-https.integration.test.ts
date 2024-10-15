@@ -1,11 +1,12 @@
 import * as functions from 'firebase-functions-test';
 import { db } from '../../helpers/fb';
 import { conditionCheck } from '../../helpers/utils';
+import { PROJECT_ID } from '../../helpers/constants'
 import { purchaseEventHttps } from './purchase-event-https';
 
 
 // test settings and vars
-const projectId = 'carv-ticketing-challenge';
+const projectId = PROJECT_ID;
 process.env.GCLOUD_PROJECT = projectId;
 process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080';
 process.env.PUBSUB_EMULATOR_HOST = 'localhost:8085';
